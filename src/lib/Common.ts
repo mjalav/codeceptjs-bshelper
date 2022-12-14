@@ -4,7 +4,7 @@ const tinyurl = require('tinyurl');
 const output = require('../lib/output');
 const api = new ApiHelper();
 const bsEndpoint = 'https://api.browserstack.com';
-
+const appAutomate = 'automate';
 export const supportedHelpers = [
     'WebDriver',
     'Appium',
@@ -20,7 +20,8 @@ export class Common {
     }
 
     async exposeBuildLink (sessionId:string, currentConfig:any, defaultBsAuth:any) {
-        const res = await api.makeGetRequest(`${bsEndpoint}/app-automate/sessions/${sessionId}.json`, { ...defaultBsAuth });
+        bsEndpoint= currentConfig.appAutomate ? bsEndpoint + '/app-automate'  : bsEndpoint + '/automate'  ;
+        const res = await api.makeGetRequest(`${bsEndpoint}/sessions/${sessionId}.json`, { ...defaultBsAuth });
 
         // eslint-disable-next-line max-len
         const exposedUrl = currentConfig.shortUrl ? this.shortenUrl(res.data.automation_session.public_url) : res.data.automation_session.public_url;
@@ -29,8 +30,9 @@ export class Common {
     }
 
     async updateBuild (sessionId:string, data:any, currentConfig:any, defaultBsAuth:any) {
+        bsEndpoint= currentConfig.appAutomate ? bsEndpoint + '/app-automate'  : bsEndpoint + '/automate'  ;
         if ((currentConfig.user && currentConfig.key) && (currentConfig.user !== '' && currentConfig.key !== '')) {
-            await api.makePutRequest(`${bsEndpoint}/app-automate/sessions/${sessionId}.json`, data, { ...defaultBsAuth });
+            await api.makePutRequest(`${bsEndpoint}/sessions/${sessionId}.json`, data, { ...defaultBsAuth });
             await this.exposeBuildLink(sessionId, currentConfig, defaultBsAuth);
         } else {
             output.log('No Browserstack credentials found. Probably you are not running with Browserstack!');
