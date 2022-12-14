@@ -86,7 +86,7 @@ describe('#shortenUrl', () => {
 
 describe('#exposeBuildLink - with shortUrl', () => {
   const sessionId = '4567';
-  mock.onGet(`https://api.browserstack.com/automate/sessions/${sessionId}.json`).reply(200, { automation_session: { public_url: 'http://test.link.abc' } });
+  mock.onGet(`https://api.browserstack.com/app-automate/sessions/${sessionId}.json`).reply(200, { automation_session: { public_url: 'http://test.link.abc' } });
   let bs;
   let currentConfig;
   let defaultBsAuth;
@@ -110,7 +110,7 @@ describe('#exposeBuildLink - with shortUrl', () => {
 
 describe('#exposeBuildLink - without shortUrl', () => {
   const sessionId = '4567';
-  mock.onGet(`https://api.browserstack.com/automate/sessions/${sessionId}.json`).reply(200, { automation_session: { public_url: 'http://test.link' } });
+  mock.onGet(`https://api.browserstack.com/app-automate/sessions/${sessionId}.json`).reply(200, { automation_session: { public_url: 'http://test.link' } });
   let bs;
   let currentConfig;
   let defaultBsAuth;
