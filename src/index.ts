@@ -15,7 +15,7 @@ for (const helperName of supportedHelpers) {
 const defaultConfig = {
   user: '',
   key: '',
-  host: '',
+  appAutomate: false,
   shortUrl: false,
   enabled: false,
 };
