@@ -15,6 +15,7 @@ for (const helperName of supportedHelpers) {
 const defaultConfig = {
   user: '',
   key: '',
+  host: '',
   shortUrl: false,
   enabled: false,
 };
